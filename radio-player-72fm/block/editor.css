@@ -1,0 +1,66 @@
+/* 72FM Radio Player: editor-only styles. The front end needs none. */
+.radio72fm-picker form {
+	display: flex;
+	align-items: flex-end;
+	gap: 8px;
+	width: 100%;
+	margin: 0 0 8px;
+}
+
+.radio72fm-picker form .components-base-control {
+	flex: 1 1 auto;
+}
+
+.radio72fm-picker .radio72fm-disclosure,
+.radio72fm-picker .radio72fm-empty {
+	width: 100%;
+	margin: 0 0 12px;
+	font-size: 12px;
+	opacity: 0.8;
+}
+
+.radio72fm-picker .radio72fm-results {
+	width: 100%;
+	max-height: 320px;
+	overflow-y: auto;
+	margin: 0 0 16px;
+	padding: 0;
+	list-style: none;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+}
+
+.radio72fm-picker .radio72fm-results li {
+	margin: 0;
+	border-bottom: 1px solid #eee;
+}
+
+.radio72fm-picker .radio72fm-results li:last-child {
+	border-bottom: 0;
+}
+
+.radio72fm-picker .radio72fm-result.components-button {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	width: 100%;
+	height: auto;
+	padding: 8px 12px;
+	text-align: left;
+	white-space: normal;
+}
+
+.radio72fm-picker .radio72fm-result-name {
+	font-weight: 600;
+}
+
+.radio72fm-picker .radio72fm-result-details {
+	font-size: 12px;
+	opacity: 0.75;
+}
+
+.radio72fm-id {
+	font-size: 12px;
+	word-break: break-all;
+	opacity: 0.8;
+}

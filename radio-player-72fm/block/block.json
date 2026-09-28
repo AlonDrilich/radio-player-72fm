@@ -1,0 +1,40 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "radio-player-72fm/player",
+	"version": "1.0.0",
+	"title": "72FM Radio Player",
+	"category": "embed",
+	"icon": "format-audio",
+	"description": "A live radio station player from 72FM. Search the Radio Browser directory, pick a station, and the player appears on your page.",
+	"keywords": [
+		"radio",
+		"station",
+		"stream",
+		"live",
+		"72fm"
+	],
+	"textdomain": "radio-player-72fm",
+	"attributes": {
+		"stationId": {
+			"type": "string",
+			"default": ""
+		},
+		"stationName": {
+			"type": "string",
+			"default": ""
+		},
+		"showLink": {
+			"type": "boolean",
+			"default": false
+		}
+	},
+	"supports": {
+		"html": false,
+		"spacing": {
+			"margin": true
+		}
+	},
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./editor.css"
+}

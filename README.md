@@ -29,6 +29,11 @@ Or use the shortcode anywhere shortcodes work:
 - The plugin stores nothing, sets no cookies and has no settings page. The player is loaded from 72fm.com; the [readme](radio-player-72fm/readme.txt) ("External services") lists exactly what each service receives.
 - Tested with WordPress 7.1 and PHP 8.3; passes the official Plugin Check rule sets.
 
+## Related
+
+- Not on WordPress? The same player works on any site: [72fm.com/radio-widget](https://72fm.com/radio-widget).
+- [internet-radio-mcp](https://github.com/AlonDrilich/internet-radio-mcp) and [radio-playlists](https://github.com/AlonDrilich/radio-playlists) use the same directory. All tools: [72fm.com/developers](https://72fm.com/developers).
+
 ## License
 
 GPLv2 or later. See [LICENSE](LICENSE).

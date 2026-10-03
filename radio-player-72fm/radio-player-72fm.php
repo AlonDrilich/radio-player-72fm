@@ -3,7 +3,7 @@
  * Plugin Name:       72FM Radio Player
  * Plugin URI:        https://72fm.com/for-broadcasters
  * Description:       Embed a live radio station player from 72FM with a shortcode or a block. Stations come from the Radio Browser public directory.
- * Version:           1.0.0
+ * Version:           1.0.1
  * Requires at least: 6.3
  * Requires PHP:      7.4
  * Author:            72FM

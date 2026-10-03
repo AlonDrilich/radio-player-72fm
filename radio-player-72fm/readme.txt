@@ -4,7 +4,7 @@ Tags: radio, internet radio, player, streaming, embed
 Requires at least: 6.3
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,6 +21,7 @@ The player is the free embed from [72FM](https://72fm.com), a web radio player b
 * 72FM does not own, operate, license or curate any radio station. Each station is listed in the Radio Browser directory, and the player plays the broadcaster's own stream, directly from the broadcaster's server.
 * Sound quality, programming and any on-air advertising are the broadcaster's, not 72FM's.
 * If a broadcaster's stream goes offline, the player says so. Neither this plugin nor 72FM can fix a station's stream.
+* A few stations only offer an unsecured (`http://`) stream. Browsers will not play those inside a page served over HTTPS, so on an HTTPS site the player first tries the `https://` form of the address and, if that does not work, says so and links to the station's page on 72FM.
 * The player is loaded from 72fm.com. See "External services" below for exactly what that means for your visitors.
 
 **Features**
@@ -69,13 +70,17 @@ No. The plugin and the 72FM embed are free, and neither you nor your visitors ne
 
 No. 72FM is a player. It does not own or run any station, and it does not host any stream. The audio comes straight from the broadcaster's server.
 
+= The player says the station only offers an unsecured stream. =
+
+Some stations only publish an `http://` stream address. A browser will not play that inside a page served over HTTPS. The player first tries the `https://` form of the address; if the station does not answer there, it says so and links to the station's page on 72FM. Pick another station, or ask the broadcaster to offer an `https://` stream.
+
 = The player says the stream is not responding. =
 
 The broadcaster's stream is offline or is refusing the connection. Try again later or pick another station.
 
 = Does the plugin track my visitors? =
 
-The plugin itself collects nothing, stores nothing and sets no cookies. The player it embeds is loaded from 72fm.com; see "External services" for what 72FM receives and records.
+The plugin itself collects nothing, stores nothing and sets no cookies. The player it embeds is loaded from 72fm.com, whose hosting platform records each view and may set a session cookie for 30 minutes inside the player; see "External services" for exactly what is recorded. If you need your pages to load nothing from a third party, do not use the embed.
 
 == External services ==
 
@@ -94,7 +99,8 @@ What happens inside the player:
 * The player looks up the station's name, logo and stream address in the Radio Browser directory (see service 2).
 * The station logo is loaded from wherever the broadcaster hosts it.
 * When the visitor presses "Listen live", the audio is streamed directly from the broadcaster's server, which then sees the visitor's IP address. 72FM does not relay the audio.
-* 72FM counts an anonymous view of the player: the event name, the player's address on 72fm.com and a device class (mobile, tablet or desktop). No identifier is attached to it. The count is skipped when the visitor's browser sends a Do Not Track or Global Privacy Control signal.
+* The player itself sends no analytics events to 72FM: no page-view count, no session tracking, nothing that identifies a visitor.
+* 72fm.com is hosted on Lovable, and the hosting platform runs its own visitor analytics on every page it serves, the player included. For each view it records the visitor's browser user agent and language, a guess at their country from their time zone, the address of the player and, depending on the browser's referrer policy, the page it was shown on, and it keeps a random session id for 30 minutes in a cookie or in the browser's storage. It does not honour Do Not Track or Global Privacy Control. If your privacy policy lists the services your pages load, add the embedded player to it.
 
 72FM terms of service: https://72fm.com/terms
 72FM privacy policy: https://72fm.com/privacy
@@ -119,10 +125,16 @@ At the time of writing, Radio Browser does not publish separate terms of service
 
 == Changelog ==
 
+= 1.0.1 =
+* The readme now describes exactly what the embedded player and its host record (hosting-platform analytics, session cookie), and explains the message shown for stations that only offer an unsecured stream.
+
 = 1.0.0 =
 * First release: "72FM Radio Player" block with station search, `[radio72]` shortcode, optional link to 72FM (off by default).
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+Documentation update: corrects the description of what the embedded player records. No functional change in the plugin.
 
 = 1.0.0 =
 First release.

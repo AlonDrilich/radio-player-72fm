@@ -4,7 +4,7 @@ Tags: radio, internet radio, player, streaming, embed
 Requires at least: 6.3
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -84,7 +84,7 @@ The plugin itself collects nothing, stores nothing and sets no cookies. The play
 
 == External services ==
 
-This plugin relies on two third-party services. Nothing is sent to either of them when the plugin is merely activated.
+This plugin relies on three third-party services (72FM's own embed server, the Radio Browser directory, and the database host that stores 72FM's anonymous view count). Nothing is sent to any of them when the plugin is merely activated.
 
 **1. 72FM embed player (72fm.com)**
 
@@ -99,7 +99,7 @@ What happens inside the player:
 * The player looks up the station's name, logo and stream address in the Radio Browser directory (see service 2).
 * The station logo is loaded from wherever the broadcaster hosts it.
 * When the visitor presses "Listen live", the audio is streamed directly from the broadcaster's server, which then sees the visitor's IP address. 72FM does not relay the audio.
-* The player itself sends no analytics events to 72FM: no page-view count, no session tracking, nothing that identifies a visitor.
+* The player records one anonymous "embed view" per load: the station id and a device class (mobile, tablet or desktop), with no cookie and no identifier attached, in 72FM's own database (see service 3). It is skipped when the visitor's browser sends a Global Privacy Control or Do Not Track signal. The player sends no page-view or session events, and does not relay the audio: the station's stream plays directly from the broadcaster's server.
 * 72fm.com is hosted on Lovable, and the hosting platform runs its own visitor analytics on every page it serves, the player included. For each view it records the visitor's browser user agent and language, a guess at their country from their time zone, the address of the player and, depending on the browser's referrer policy, the page it was shown on, and it keeps a random session id for 30 minutes in a cookie or in the browser's storage. It does not honour Do Not Track or Global Privacy Control. If your privacy policy lists the services your pages load, add the embedded player to it.
 
 72FM terms of service: https://72fm.com/terms
@@ -112,11 +112,20 @@ What it is used for: finding stations. Radio Browser is a free, community-run di
 When data is sent:
 
 * In the block editor, only when you type a station name and press Search. The request goes from your browser to `de1.api.radio-browser.info` (or, if that does not answer, `de2.api.radio-browser.info` or `all.api.radio-browser.info`). It contains your search words; the plugin sends it without cookies and without a referrer. As with any web request, Radio Browser receives your IP address and browser user agent.
-* On the public site, the 72FM player (not the plugin) asks the Radio Browser API for the station's details, as described above.
+* On the public site, the 72FM player (not the plugin) asks the Radio Browser API for the station's details, as described above, so Radio Browser also receives the visitor's IP address and browser user agent. The station logo is loaded from the broadcaster's own host, which sees them too.
 
 Radio Browser website: https://www.radio-browser.info/
 Radio Browser API documentation: https://api.radio-browser.info/
 At the time of writing, Radio Browser does not publish separate terms of service or a privacy policy; its website and API documentation are the published information about the service.
+
+**3. Supabase (supabase.co), 72FM's database host**
+
+What it is used for: storing the anonymous embed-view count described above.
+
+When data is sent: every time a visitor loads a page that contains the player (unless the visitor's browser sends a Global Privacy Control or Do Not Track signal). The request goes from the visitor's browser to 72FM's database project on supabase.co, which, like any web request, reveals the visitor's IP address and browser user agent to that host. 72FM's table stores the station id and the device class, not the IP address.
+
+Supabase terms: https://supabase.com/terms
+Supabase privacy policy: https://supabase.com/privacy
 
 == Screenshots ==
 
@@ -125,6 +134,9 @@ At the time of writing, Radio Browser does not publish separate terms of service
 
 == Changelog ==
 
+= 1.0.2 =
+* Readme correction: the embedded player does record one anonymous embed view per load (station id and device class, no identifier) in 72FM's own database on Supabase; Supabase is now listed as a third service, and the readme says that Radio Browser and the logo's host also see the visitor's IP address.
+
 = 1.0.1 =
 * The readme now describes exactly what the embedded player and its host record (hosting-platform analytics, session cookie), and explains the message shown for stations that only offer an unsecured stream.
 
@@ -132,6 +144,9 @@ At the time of writing, Radio Browser does not publish separate terms of service
 * First release: "72FM Radio Player" block with station search, `[radio72]` shortcode, optional link to 72FM (off by default).
 
 == Upgrade Notice ==
+
+= 1.0.2 =
+Documentation correction about what the embedded player records. No functional change in the plugin.
 
 = 1.0.1 =
 Documentation update: corrects the description of what the embedded player records. No functional change in the plugin.
